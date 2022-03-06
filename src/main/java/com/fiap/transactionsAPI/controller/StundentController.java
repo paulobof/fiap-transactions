@@ -11,30 +11,32 @@ import java.util.List;
 public class StundentController {
 
     @GetMapping
-    public List<StudentDTO> getStudents(){
+    public List<StudentDTO> findAllStudents() {
         StudentDTO studentDTO = new StudentDTO();
         List<StudentDTO> studentDTOS = new ArrayList<>();
         studentDTOS.add(studentDTO);
         return studentDTOS;
     }
 
+    @GetMapping(value = {"id"})
+    public StudentDTO findById(@PathVariable String id) {
+        return new StudentDTO();
+    }
+
     @PostMapping
-    public StudentDTO insertStudent(@RequestBody StudentDTO studentDTO){
+    public StudentDTO insertStudent(@RequestBody StudentDTO studentDTO) {
         return new StudentDTO();
     }
 
     @PutMapping(value = "{id}")
-    public StudentDTO updateStudent(@RequestBody StudentDTO studentDTO, @PathVariable String id){
+    public StudentDTO updateStudent(@RequestBody StudentDTO studentDTO, @PathVariable String id) {
         System.out.println("Chegou aqui! -> " + id);
         return null;
     }
 
     @DeleteMapping
-    public void deleteStudent(@PathVariable String id){
+    public void deleteStudent(@PathVariable String id) {
         // TODO: 06/03/2022 implementar a busca pelo id e depois o delete
     }
-
-
-
 
 }
