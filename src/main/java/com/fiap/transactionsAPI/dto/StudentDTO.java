@@ -1,10 +1,21 @@
 package com.fiap.transactionsAPI.dto;
 
+import com.fiap.transactionsAPI.entity.StudentEntity;
+
 public class StudentDTO {
 
     private String name;
     private String email;
     private Long ra;
+
+    public StudentDTO() {
+    }
+
+    public StudentDTO(StudentEntity entity){
+        this.name = entity.getName();
+        this.email = entity.getEmail();
+        this.ra = entity.getRa();
+    }
 
     public String getName() {
         return name;

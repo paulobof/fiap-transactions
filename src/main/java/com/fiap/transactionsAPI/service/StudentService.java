@@ -1,10 +1,12 @@
 package com.fiap.transactionsAPI.service;
 
 import com.fiap.transactionsAPI.dto.StudentDTO;
+import com.fiap.transactionsAPI.entity.StudentEntity;
 import com.fiap.transactionsAPI.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -23,7 +25,9 @@ public class StudentService {
     }
 
     public StudentDTO findById(String id){
-        return null;
+       Optional<StudentEntity> optionalStudentEntity = studentRepository.findById(id);
+       StudentEntity studentEntity = optionalStudentEntity.orElseThrow(RuntimeException::new);
+       return new StudentDTO(studentEntity);
     }
 
     public StudentDTO insert(StudentDTO studentDTO){
