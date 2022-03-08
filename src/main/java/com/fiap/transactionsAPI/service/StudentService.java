@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -20,8 +21,13 @@ public class StudentService {
 
 
     public List<StudentDTO> findAll(){
-        // TODO: 06/03/2022 implement repository
-        return null;
+        List<StudentEntity> listEntity = studentRepository.findAll();
+
+        List<StudentDTO> studentDTOS = listEntity.stream()
+                .map(StudentDTO::new)
+                .collect(Collectors.toList());
+
+        return studentDTOS;
     }
 
     public StudentDTO findById(String id){
@@ -31,7 +37,8 @@ public class StudentService {
     }
 
     public StudentDTO insert(StudentDTO studentDTO){
-        return null;
+
+        return new StudentDTO(studentRepository.save(new StudentEntity(studentDTO)));
     }
 
     public StudentDTO update(StudentDTO studentDTO){

@@ -1,21 +1,25 @@
 package com.fiap.transactionsAPI.controller;
 
 import com.fiap.transactionsAPI.dto.StudentDTO;
+import com.fiap.transactionsAPI.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("students")
 public class StundentController {
 
+    private StudentService studentService;
+
+    public StundentController(StudentService studentService){
+
+        this.studentService = studentService;
+    }
+
     @GetMapping
     public List<StudentDTO> findAllStudents() {
-        StudentDTO studentDTO = new StudentDTO();
-        List<StudentDTO> studentDTOS = new ArrayList<>();
-        studentDTOS.add(studentDTO);
-        return studentDTOS;
+        return studentService.findAll();
     }
 
     @GetMapping(value = {"id"})
@@ -25,7 +29,8 @@ public class StundentController {
 
     @PostMapping
     public StudentDTO insertStudent(@RequestBody StudentDTO studentDTO) {
-        return new StudentDTO();
+        StudentDTO studentSaved = studentService.insert(studentDTO);
+        return studentSaved;
     }
 
     @PutMapping(value = "{id}")

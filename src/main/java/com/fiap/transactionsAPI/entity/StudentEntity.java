@@ -1,12 +1,13 @@
 package com.fiap.transactionsAPI.entity;
 
+import com.fiap.transactionsAPI.dto.StudentDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-@Document
+@Document("student")
 public class StudentEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -17,6 +18,14 @@ public class StudentEntity implements Serializable {
 
     @Id
     private Long ra;
+
+    public StudentEntity(){}
+
+    public StudentEntity(StudentDTO studentDTO){
+        this.ra = studentDTO.getRa();
+        this.name = studentDTO.getName();
+        this.email = studentDTO.getEmail();
+    }
 
     public String getName() {
         return name;
