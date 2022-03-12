@@ -17,14 +17,25 @@ public class StudentEntity implements Serializable {
     private String email;
 
     @Id
+    private String id;
+
     private Long ra;
 
-    public StudentEntity(){}
+    public StudentEntity() {
+    }
 
-    public StudentEntity(StudentDTO studentDTO){
+    public StudentEntity(StudentDTO studentDTO) {
         this.ra = studentDTO.getRa();
         this.name = studentDTO.getName();
         this.email = studentDTO.getEmail();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -56,12 +67,12 @@ public class StudentEntity implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudentEntity that = (StudentEntity) o;
-        return ra.equals(that.ra);
+        return Objects.equals(name, that.name) && Objects.equals(email, that.email) && Objects.equals(id, that.id) && Objects.equals(ra, that.ra);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ra);
+        return Objects.hash(name, email, id, ra);
     }
 
     @Override
@@ -69,6 +80,7 @@ public class StudentEntity implements Serializable {
         return "StudentEntity{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", id='" + id + '\'' +
                 ", ra=" + ra +
                 '}';
     }

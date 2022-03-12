@@ -2,9 +2,8 @@ package com.fiap.transactionsAPI.controller;
 
 import com.fiap.transactionsAPI.dto.StudentDTO;
 import com.fiap.transactionsAPI.service.StudentService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("students")
@@ -17,31 +16,42 @@ public class StundentController {
         this.studentService = studentService;
     }
 
-    @GetMapping
-    public List<StudentDTO> findAllStudents() {
-        return studentService.findAll();
-    }
+//    @GetMapping
+//    public List<StudentDTO> findAllStudents() {
+//        return studentService.findAll();
+//    }
 
-    @GetMapping(value = {"id"})
+    @GetMapping(value = "{id}")
     public StudentDTO findById(@PathVariable String id) {
-        return new StudentDTO();
+        return studentService.findById(id);
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public StudentDTO insertStudent(@RequestBody StudentDTO studentDTO) {
-        StudentDTO studentSaved = studentService.insert(studentDTO);
-        return studentSaved;
+        return studentService.insert(studentDTO);
     }
 
     @PutMapping(value = "{id}")
     public StudentDTO updateStudent(@RequestBody StudentDTO studentDTO, @PathVariable String id) {
-        System.out.println("Chegou aqui! -> " + id);
-        return null;
+        studentDTO.setRa(Long.valueOf(id));
+        return studentService.update(studentDTO);
     }
 
-    @DeleteMapping
-    public void deleteStudent(@PathVariable String id) {
-        // TODO: 06/03/2022 implementar a busca pelo id e depois o delete
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "{id}")
+    public void deleteStudent(@PathVariable Object id) {
+        studentService.delete(id);
+    }
+
+    @GetMapping(value = "/ra/{ra}")
+    public StudentDTO findByRa(@PathVariable Long ra){
+        return studentService.findByRa(ra);
+    }
+
+    @GetMapping
+    public Object find(@RequestParam(value = "ra", defaultValue = "") Long ra){
+        return ra == null? studentService.findAll() : studentService.findByRa(ra);
     }
 
 }
