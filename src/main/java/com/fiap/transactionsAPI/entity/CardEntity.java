@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.List;
 
 @Document("card")
 public class CardEntity {
@@ -20,19 +20,28 @@ public class CardEntity {
     private Integer securityCode;
     private LocalDate expirationDate;
     private CardAccountEntity cardAccount;
-
-    private InvoiceEntity invoiceEntity;
+    private List<InvoiceEntity> invoiceEntityList;
 
     public CardEntity() {
 
     }
 
-    public CardEntity(String name, String cardFlag, Long cardNumber, Integer securityCode, LocalDate expirationDate) {
+    public CardEntity(String name, String cardFlag, Long cardNumber, Integer securityCode, LocalDate expirationDate, CardAccountEntity cardAccount, List<InvoiceEntity> invoiceEntityList) {
         this.name = name;
         this.cardFlag = cardFlag;
         this.cardNumber = cardNumber;
         this.securityCode = securityCode;
         this.expirationDate = expirationDate;
+        this.cardAccount = cardAccount;
+        this.invoiceEntityList = invoiceEntityList;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -75,32 +84,19 @@ public class CardEntity {
         this.expirationDate = expirationDate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CardEntity that = (CardEntity) o;
-        return id.equals(that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public CardAccountEntity getCardAccount() {
         return cardAccount;
     }
 
     public void setCardAccount(CardAccountEntity cardAccount) {
         this.cardAccount = cardAccount;
+    }
+
+    public List<InvoiceEntity> getInvoiceEntityList() {
+        return invoiceEntityList;
+    }
+
+    public void setInvoiceEntityList(List<InvoiceEntity> invoiceEntityList) {
+        this.invoiceEntityList = invoiceEntityList;
     }
 }
