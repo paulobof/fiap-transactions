@@ -2,6 +2,7 @@ package com.fiap.transactionsAPI.entity;
 
 import com.fiap.transactionsAPI.dto.StudentDTO;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
@@ -10,16 +11,17 @@ import java.util.Objects;
 @Document("student")
 public class StudentEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    private String name;
-
-    private String email;
+    private static final long serialVersionUID = 1;
 
     @Id
     private String id;
 
+    private String name;
+    private String email;
     private Long ra;
+
+    @DBRef(lazy = true)
+    private CardEntity card;
 
     public StudentEntity() {
     }
@@ -83,5 +85,13 @@ public class StudentEntity implements Serializable {
                 ", id='" + id + '\'' +
                 ", ra=" + ra +
                 '}';
+    }
+
+    public CardEntity getCard() {
+        return card;
+    }
+
+    public void setCard(CardEntity card) {
+        this.card = card;
     }
 }
