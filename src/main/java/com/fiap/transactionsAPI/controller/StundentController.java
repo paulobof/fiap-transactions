@@ -54,4 +54,9 @@ public class StundentController {
         return ra == null? studentService.findAll() : studentService.findByRa(ra);
     }
 
+    @GetMapping(value = "teste")
+    public String teste(){
+        return "teste";
+    }
+
 }

@@ -39,7 +39,7 @@ public class StudentService {
 
     public StudentDTO insert(StudentDTO studentDTO) {
 
-        return new StudentDTO(studentRepository.save(new StudentEntity(studentDTO)));
+        return new StudentDTO(studentRepository.insert(new StudentEntity(studentDTO)));
     }
 
     public StudentDTO update(StudentDTO studentDTO) {
@@ -63,4 +63,6 @@ public class StudentService {
         return new StudentDTO(optionalStudent.orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
+
+
 }

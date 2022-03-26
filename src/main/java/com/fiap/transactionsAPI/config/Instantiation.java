@@ -1,9 +1,7 @@
 package com.fiap.transactionsAPI.config;
 
-import com.fiap.transactionsAPI.entity.CardAccountEntity;
-import com.fiap.transactionsAPI.entity.CardEntity;
-import com.fiap.transactionsAPI.entity.InvoiceEntity;
-import com.fiap.transactionsAPI.entity.InvoiceItemEntity;
+import com.fiap.transactionsAPI.entity.*;
+import com.fiap.transactionsAPI.enums.CardFlagEnum;
 import com.fiap.transactionsAPI.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -16,11 +14,11 @@ import java.util.List;
 @Configuration
 public class Instantiation implements CommandLineRunner {
 
-    private CardRepository cardRepository;
-    private CardAccountRepository cardAccountRepository;
-    private InvoiceRepository invoiceRepository;
-    private InvoiceItemRepository invoiceItemRepository;
-    private StudentRepository studentRepository;
+    private final CardRepository cardRepository;
+    private final CardAccountRepository cardAccountRepository;
+    private final InvoiceRepository invoiceRepository;
+    private final InvoiceItemRepository invoiceItemRepository;
+    private final StudentRepository studentRepository;
 
     public Instantiation(CardRepository cardRepository,
                          CardAccountRepository cardAccountRepository,
@@ -39,9 +37,10 @@ public class Instantiation implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        studentRepository.deleteAll();
         cardRepository.deleteAll();
         invoiceRepository.deleteAll();
-        invoiceRepository.deleteAll();
+        invoiceItemRepository.deleteAll();
         cardAccountRepository.deleteAll();
 
 
@@ -67,6 +66,14 @@ public class Instantiation implements CommandLineRunner {
 
         CardEntity cardEntity = getCardEntity(cardAccountEntity, invoiceEntity);
 
+        StudentEntity studentEntity = new StudentEntity();
+        studentEntity.setName("Wesley Guimarães");
+        studentEntity.setEmail("wees.guimaraes@gmail.com");
+        studentEntity.setRa(343539L);
+        studentEntity.setCard(cardEntity);
+
+        studentRepository.save(studentEntity);
+
 
 //        cardRepository.save(cardEntity);
     }
@@ -74,10 +81,10 @@ public class Instantiation implements CommandLineRunner {
 
     private CardEntity getCardEntity(CardAccountEntity cardAccountEntity, InvoiceEntity invoiceEntity){
         CardEntity cardEntity = new CardEntity();
-        List<InvoiceEntity> invoiceEntityList = new ArrayList();
+        List<InvoiceEntity> invoiceEntityList = new ArrayList<>();
         invoiceEntityList.add(invoiceEntity);
         cardEntity.setName("WESLEY GUIMARAES");
-        cardEntity.setCardFlag("VISA");
+        cardEntity.setCardFlag(CardFlagEnum.VISA);
         cardEntity.setExpirationDate(LocalDate.of(2029, 10, 30));
         cardEntity.setSecurityCode(429);
         cardEntity.setCardNumber(8907654321123L);

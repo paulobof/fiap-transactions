@@ -1,7 +1,9 @@
 package com.fiap.transactionsAPI.entity;
 
+import com.fiap.transactionsAPI.enums.CardFlagEnum;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,18 +17,20 @@ public class CardEntity {
     private String id;
 
     private String name;
-    private String cardFlag;
+    private CardFlagEnum cardFlag;
     private Long cardNumber;
     private Integer securityCode;
     private LocalDate expirationDate;
     private CardAccountEntity cardAccount;
+
+    @DocumentReference
     private List<InvoiceEntity> invoiceEntityList;
 
     public CardEntity() {
 
     }
 
-    public CardEntity(String name, String cardFlag, Long cardNumber, Integer securityCode, LocalDate expirationDate, CardAccountEntity cardAccount, List<InvoiceEntity> invoiceEntityList) {
+    public CardEntity(String name, CardFlagEnum cardFlag, Long cardNumber, Integer securityCode, LocalDate expirationDate, CardAccountEntity cardAccount, List<InvoiceEntity> invoiceEntityList) {
         this.name = name;
         this.cardFlag = cardFlag;
         this.cardNumber = cardNumber;
@@ -50,14 +54,6 @@ public class CardEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCardFlag() {
-        return cardFlag;
-    }
-
-    public void setCardFlag(String cardFlag) {
-        this.cardFlag = cardFlag;
     }
 
     public Long getCardNumber() {
@@ -98,5 +94,13 @@ public class CardEntity {
 
     public void setInvoiceEntityList(List<InvoiceEntity> invoiceEntityList) {
         this.invoiceEntityList = invoiceEntityList;
+    }
+
+    public CardFlagEnum getCardFlag() {
+        return cardFlag;
+    }
+
+    public void setCardFlag(CardFlagEnum cardFlag) {
+        this.cardFlag = cardFlag;
     }
 }
