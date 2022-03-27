@@ -1,27 +1,23 @@
 package com.fiap.transactionsAPI.dto;
 
-import com.fiap.transactionsAPI.enums.StatusEnum;
-
-import java.time.LocalDateTime;
-
 public class TransactionDTO {
 
-    private LocalDateTime approvalTime;
-    private StatusEnum statusEnum;
+    private InvoiceItemDTO purchaseDTO;
+    private CardDTO cardDTO;
 
-    public LocalDateTime getApprovalTime() {
-        return approvalTime;
+    public InvoiceItemDTO getPurchaseDTO() {
+        return purchaseDTO;
     }
 
-    public void setApprovalTime(LocalDateTime approvalTime) {
-        this.approvalTime = approvalTime;
+    public void setPurchaseDTO(InvoiceItemDTO purchaseDTO) {
+        this.purchaseDTO = purchaseDTO;
     }
 
-    public StatusEnum getStatusEnum() {
-        return statusEnum;
+    public CardDTO getCardDTO() {
+        return cardDTO;
     }
 
-    public void setStatusEnum(StatusEnum statusEnum) {
-        this.statusEnum = statusEnum;
+    public void setCardDTO(CardDTO cardDTO) {
+        this.cardDTO = cardDTO;
     }
 }

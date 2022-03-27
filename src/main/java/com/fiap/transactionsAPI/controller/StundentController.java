@@ -1,7 +1,7 @@
 package com.fiap.transactionsAPI.controller;
 
 import com.fiap.transactionsAPI.dto.StudentDTO;
-import com.fiap.transactionsAPI.service.StudentService;
+import com.fiap.transactionsAPI.service.StudentServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("students")
 public class StundentController {
 
-    private StudentService studentService;
+    private StudentServiceImpl studentService;
 
-    public StundentController(StudentService studentService){
+    public StundentController(StudentServiceImpl studentService){
 
         this.studentService = studentService;
     }
