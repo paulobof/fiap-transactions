@@ -1,73 +1,47 @@
 package com.fiap.transactionsAPI.service;
 
-import com.fiap.transactionsAPI.dto.AprovalDTO;
+import com.fiap.transactionsAPI.dto.ApprovalDTO;
 import com.fiap.transactionsAPI.dto.InvoiceItemDTO;
 import com.fiap.transactionsAPI.dto.TransactionDTO;
 import com.fiap.transactionsAPI.entity.CardEntity;
-import com.fiap.transactionsAPI.enums.StatusEnum;
-import com.fiap.transactionsAPI.repository.CardRepository;
-import com.fiap.transactionsAPI.repository.InvoiceRepository;
-import com.fiap.transactionsAPI.utils.Constants;
+import com.fiap.transactionsAPI.entity.InvoiceEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private CardRepository cardRepository;
-    private CardServiceImpl cardService;
-    private InvoiceRepository invoiceRepository;
 
-    public TransactionServiceImpl(CardRepository cardRepository,
-                                  CardServiceImpl cardService,
-                                  InvoiceRepository invoiceRepository){
+    private final CardService cardService;
 
-        this.cardRepository = cardRepository;
+    public TransactionServiceImpl(CardService cardService) {
+
         this.cardService = cardService;
-        this.invoiceRepository = invoiceRepository;
     }
 
     @Override
-    public AprovalDTO authorize(TransactionDTO transactionDTO) {
+    public ApprovalDTO authorize(TransactionDTO transactionDTO) {
 
-//         Consultar se existe o cartão
+        ApprovalDTO approvalDTO = new ApprovalDTO();
         Optional<CardEntity> optCardEntity = cardService.findCard(transactionDTO.getCardDTO());
-        AprovalDTO aprovalDTO = new AprovalDTO();
 
-//        Caso existir, mando gerar a fatura e monto o obj de retorno
+        if (optCardEntity.isPresent()) {
+            if (checkBalance(optCardEntity.get(), transactionDTO.getPurchaseDTO())) {
+                InvoiceEntity updatedInvoice = cardService.createOrUpdateInvoice(optCardEntity.get().getInvoiceEntityList(), transactionDTO.getPurchaseDTO());
+                cardService.update(optCardEntity.get(), updatedInvoice);
+                approvalDTO.approvalSucess();
+            } else
+                approvalDTO.approvalDenied();
+        } else
+            approvalDTO.approvalFailed();
 
-        if(optCardEntity.isPresent())
-            aprovalDTO = checkBalance(optCardEntity.get(), transactionDTO.getPurchaseDTO());
-        else
-            aprovalDTO = aprovalFailed();
-
-        return aprovalDTO;
+        return approvalDTO;
     }
 
-    private AprovalDTO checkBalance(CardEntity card, InvoiceItemDTO purchaseDTO) {
-        AprovalDTO aprovalDTO = new AprovalDTO();
-        if(card.getCardAccount().getAccountBalance() > 0.0
-            && card.getCardAccount().getAccountBalance() >= purchaseDTO.getPurchaseValue())
-            aprovalSucess(aprovalDTO);
-        else
-            aprovalDTO = aprovalFailed();
-
-        return aprovalDTO;
+    private Boolean checkBalance(CardEntity card, InvoiceItemDTO purchaseDTO) {
+        return card.getCardAccount().getAccountBalance() > 0.0
+                && card.getCardAccount().getAccountBalance() >= purchaseDTO.getPurchaseValue();
     }
 
-    private AprovalDTO aprovalFailed() {
-        AprovalDTO aprovalDTO = new AprovalDTO();
-        aprovalDTO.setApprovalTime(LocalDateTime.now());
-        aprovalDTO.setStatusEnum(StatusEnum.NOT_APROVED);
-        aprovalDTO.setMessage(Constants.INSUFFICIENT_BALANCE);
-        return aprovalDTO;
-    }
-
-    private void aprovalSucess(AprovalDTO aprovalDTO) {
-        aprovalDTO.setApprovalTime(LocalDateTime.now());
-        aprovalDTO.setStatusEnum(StatusEnum.APROVED);
-        aprovalDTO.setMessage(Constants.PURCHASE_MADE_SUCCESSFULLY);
-    }
 }

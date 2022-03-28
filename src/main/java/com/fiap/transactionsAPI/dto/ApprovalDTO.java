@@ -1,10 +1,11 @@
 package com.fiap.transactionsAPI.dto;
 
 import com.fiap.transactionsAPI.enums.StatusEnum;
+import com.fiap.transactionsAPI.utils.Constants;
 
 import java.time.LocalDateTime;
 
-public class AprovalDTO {
+public class ApprovalDTO {
 
     private LocalDateTime approvalTime;
     private StatusEnum statusEnum;
@@ -42,4 +43,23 @@ public class AprovalDTO {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public void approvalFailed() {
+        this.setApprovalTime(LocalDateTime.now());
+        this.setStatusEnum(StatusEnum.NOT_APROVED);
+        this.setMessage(Constants.NON_EXISTING_CARD);
+    }
+
+    public void approvalSucess() {
+        this.setApprovalTime(LocalDateTime.now());
+        this.setStatusEnum(StatusEnum.APROVED);
+        this.setMessage(Constants.PURCHASE_MADE_SUCCESSFULLY);
+    }
+
+    public void approvalDenied(){
+        this.setApprovalTime(LocalDateTime.now());
+        this.setStatusEnum(StatusEnum.NOT_APROVED);
+        this.setMessage(Constants.INSUFFICIENT_BALANCE);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.fiap.transactionsAPI.entity;
 
 import com.fiap.transactionsAPI.dto.StudentDTO;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.FieldType;
@@ -20,6 +21,7 @@ public class StudentEntity implements Serializable {
     private Long ra;
 
     @DocumentReference
+    @Indexed(unique = true)
     private CardEntity card;
 
     public StudentEntity() {

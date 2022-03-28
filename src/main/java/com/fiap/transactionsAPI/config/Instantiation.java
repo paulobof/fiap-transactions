@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -45,11 +44,11 @@ public class Instantiation implements CommandLineRunner {
 
 
         InvoiceEntity invoiceEntity = new InvoiceEntity();
-        InvoiceItemEntity invoiceItemEntity1 = new InvoiceItemEntity(LocalDate.of(2022, 3, 10), "Amazon", 250.0);
-        InvoiceItemEntity invoiceItemEntity2 = new InvoiceItemEntity(LocalDate.of(2022, 3, 10), "Mercado Livre", 250.0);
-        List<InvoiceItemEntity> invoiceItemEntityList = Arrays.asList(invoiceItemEntity1, invoiceItemEntity2);
+//        InvoiceItemEntity invoiceItemEntity1 = new InvoiceItemEntity(LocalDate.of(2022, 3, 10), "Amazon", 250.0);
+//        InvoiceItemEntity invoiceItemEntity2 = new InvoiceItemEntity(LocalDate.of(2022, 3, 10), "Mercado Livre", 250.0);
+//        List<InvoiceItemEntity> invoiceItemEntityList = Arrays.asList(invoiceItemEntity1, invoiceItemEntity2);
 
-        invoiceItemEntityList = invoiceItemRepository.saveAll(invoiceItemEntityList);
+//        invoiceItemEntityList = invoiceItemRepository.saveAll(invoiceItemEntityList);
 
 
         invoiceEntity.setBarcode("84690000000 - 7 85990109011 - 7 00466059035 - 9 60114802628 - 4");
@@ -58,7 +57,7 @@ public class Instantiation implements CommandLineRunner {
         invoiceEntity.setFullValue(500.0);
         invoiceEntity.setIssuanceDate(LocalDate.of(2022, 4, 1));
         invoiceEntity.setMinimalValue(100.0);
-        invoiceEntity.setInvoiceItemEntity(invoiceItemEntityList);
+        invoiceEntity.setInvoiceItemEntity(new ArrayList<InvoiceItemEntity>());
 
         invoiceEntity = invoiceRepository.save(invoiceEntity);
 

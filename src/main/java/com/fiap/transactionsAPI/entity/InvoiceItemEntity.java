@@ -1,9 +1,10 @@
 package com.fiap.transactionsAPI.entity;
 
+import com.fiap.transactionsAPI.dto.InvoiceItemDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Document("invoiceItem")
 public class InvoiceItemEntity {
@@ -13,17 +14,23 @@ public class InvoiceItemEntity {
     @Id
     private String id;
 
-    private LocalDate purchaseDate;
+    private LocalDateTime purchaseDate;
     private String establishment;
     private Double itemValue;
 
     public InvoiceItemEntity() {
     }
 
-    public InvoiceItemEntity(LocalDate purchaseDate, String establishment, Double itemValue) {
+    public InvoiceItemEntity(LocalDateTime purchaseDate, String establishment, Double itemValue) {
         this.purchaseDate = purchaseDate;
         this.establishment = establishment;
         this.itemValue = itemValue;
+    }
+
+    public InvoiceItemEntity(InvoiceItemDTO purchaseItem) {
+        this.establishment = purchaseItem.getEstablishment();
+        this.itemValue = purchaseItem.getPurchaseValue();
+        this.purchaseDate = purchaseItem.getPurchaseDate();
     }
 
     public String getId() {
@@ -34,11 +41,11 @@ public class InvoiceItemEntity {
         this.id = id;
     }
 
-    public LocalDate getPurchaseDate() {
+    public LocalDateTime getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(LocalDate purchaseDate) {
+    public void setPurchaseDate(LocalDateTime purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 

@@ -1,6 +1,6 @@
 package com.fiap.transactionsAPI.controller;
 
-import com.fiap.transactionsAPI.dto.AprovalDTO;
+import com.fiap.transactionsAPI.dto.ApprovalDTO;
 import com.fiap.transactionsAPI.dto.TransactionDTO;
 import com.fiap.transactionsAPI.service.TransactionService;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("authorization")
 public class AuthorizationController {
 
-    private TransactionService transactionService;
+    private final TransactionService transactionService;
 
     public AuthorizationController(TransactionService transactionService){
 
@@ -17,7 +17,7 @@ public class AuthorizationController {
     }
 
     @PostMapping
-    public AprovalDTO authorize(@RequestBody TransactionDTO transactionDTO) {
+    public ApprovalDTO authorize(@RequestBody TransactionDTO transactionDTO) {
        return transactionService.authorize(transactionDTO);
     }
 }
