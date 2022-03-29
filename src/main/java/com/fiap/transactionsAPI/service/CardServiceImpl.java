@@ -53,15 +53,12 @@ public class CardServiceImpl implements CardService{
                             && (invoiceEntity.getIssuanceDate().getMonthValue() == today.getMonthValue() + currentOrNextMonth))
                     .collect(Collectors.toList());
         }
+        InvoiceItemEntity invoiceItemPersisted = invoiceItemService.insert(purchaseItem);
 
         if (!currentInvoiceList.isEmpty())
-            currentInvoice = currentInvoiceList.get(0);
-            // TODO: 28/03/2022 implementar adicionar da compra na fatura já existente e mandar atualizar a fatura e cartão.
-        else {
-            InvoiceItemEntity invoiceItemPersisted = invoiceItemService.insert(purchaseItem);
+            currentInvoice = invoiceService.update(currentInvoiceList.get(0), invoiceItemPersisted);
+        else
             currentInvoice = invoiceService.create(invoiceItemPersisted);
-        }
-
 
 
         return currentInvoice;
@@ -69,6 +66,9 @@ public class CardServiceImpl implements CardService{
 
     @Override
     public CardEntity update(CardEntity cardEntity, InvoiceEntity updatedInvoice) {
+        if (cardEntity.getInvoiceEntityList() == null)
+            cardEntity.setInvoiceEntityList(new ArrayList<>());
+
         cardEntity.getInvoiceEntityList().add(updatedInvoice);
         return cardRepository.save(cardEntity);
     }

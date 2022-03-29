@@ -23,7 +23,7 @@ public class CardEntity {
     private LocalDate expirationDate;
     private CardAccountEntity cardAccount;
 
-    @DocumentReference
+    @DocumentReference(lazy = false)
     private List<InvoiceEntity> invoiceEntityList;
 
     public CardEntity() {

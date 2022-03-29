@@ -20,7 +20,7 @@ public class StudentEntity implements Serializable {
     @MongoId(FieldType.INT64)
     private Long ra;
 
-    @DocumentReference
+    @DocumentReference(lazy = false)
     @Indexed(unique = true)
     private CardEntity card;
 

@@ -29,6 +29,14 @@ public class InvoiceServiceImpl implements InvoiceService {
         return invoiceRepository.insert(newInvoiceEntity);
     }
 
+    @Override
+    public InvoiceEntity update(InvoiceEntity invoiceEntity, InvoiceItemEntity invoiceItemEntity) {
+        invoiceEntity.getInvoiceItemEntity().add(invoiceItemEntity);
+        invoiceEntity.setFullValue(invoiceEntity.getFullValue() + invoiceItemEntity.getItemValue());
+        invoiceEntity.setMinimalValue(invoiceEntity.getFullValue() * 0.15);
+        return invoiceRepository.save(invoiceEntity);
+    }
+
     private InvoiceEntity buildInvoice(InvoiceItemEntity purchaseItem, InvoiceEntity invoiceEntity, LocalDate currentDate) {
         List<InvoiceItemEntity> invoiceItemEntityList = new ArrayList<>();
         invoiceItemEntityList.add(purchaseItem);

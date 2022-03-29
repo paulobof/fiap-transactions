@@ -36,11 +36,11 @@ public class Instantiation implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        studentRepository.deleteAll();
-        cardRepository.deleteAll();
+//        studentRepository.deleteAll();
+//        cardRepository.deleteAll();
         invoiceRepository.deleteAll();
         invoiceItemRepository.deleteAll();
-        cardAccountRepository.deleteAll();
+//        cardAccountRepository.deleteAll();
 
 
         InvoiceEntity invoiceEntity = new InvoiceEntity();
@@ -51,15 +51,15 @@ public class Instantiation implements CommandLineRunner {
 //        invoiceItemEntityList = invoiceItemRepository.saveAll(invoiceItemEntityList);
 
 
-        invoiceEntity.setBarcode("84690000000 - 7 85990109011 - 7 00466059035 - 9 60114802628 - 4");
-        invoiceEntity.setClosingDate(LocalDate.of(2022, 4, 5));
-        invoiceEntity.setDueDate(LocalDate.of(2022, 4, 10));
-        invoiceEntity.setFullValue(500.0);
-        invoiceEntity.setIssuanceDate(LocalDate.of(2022, 4, 1));
-        invoiceEntity.setMinimalValue(100.0);
-        invoiceEntity.setInvoiceItemEntity(new ArrayList<InvoiceItemEntity>());
-
-        invoiceEntity = invoiceRepository.save(invoiceEntity);
+//        invoiceEntity.setBarcode("84690000000 - 7 85990109011 - 7 00466059035 - 9 60114802628 - 4");
+//        invoiceEntity.setClosingDate(LocalDate.of(2022, 4, 5));
+//        invoiceEntity.setDueDate(LocalDate.of(2022, 4, 10));
+//        invoiceEntity.setFullValue(500.0);
+//        invoiceEntity.setIssuanceDate(LocalDate.of(2022, 4, 1));
+//        invoiceEntity.setMinimalValue(100.0);
+//        invoiceEntity.setInvoiceItemEntity(new ArrayList<InvoiceItemEntity>());
+//
+//        invoiceEntity = invoiceRepository.save(invoiceEntity);
 
         CardAccountEntity cardAccountEntity = getCardAccountEntity();
 
@@ -71,7 +71,7 @@ public class Instantiation implements CommandLineRunner {
         studentEntity.setRa(343539L);
         studentEntity.setCard(cardEntity);
 
-        studentRepository.save(studentEntity);
+//        studentRepository.save(studentEntity);
 
 
 //        cardRepository.save(cardEntity);
@@ -88,9 +88,9 @@ public class Instantiation implements CommandLineRunner {
         cardEntity.setSecurityCode(429);
         cardEntity.setCardNumber(8907654321123L);
         cardEntity.setCardAccount(cardAccountEntity);
-        cardEntity.setInvoiceEntityList(invoiceEntityList);
+//        cardEntity.setInvoiceEntityList(invoiceEntityList);
 
-        cardEntity = cardRepository.save(cardEntity);
+//        cardEntity = cardRepository.save(cardEntity);
 
         return cardEntity;
     }
@@ -102,7 +102,7 @@ public class Instantiation implements CommandLineRunner {
         cardAccountEntity.setAccountBalance(1000.0);
         cardAccountEntity.setAccountLimit(1000.0);
 
-        cardAccountEntity = cardAccountRepository.save(cardAccountEntity);
+//        cardAccountEntity = cardAccountRepository.save(cardAccountEntity);
         return cardAccountEntity;
     }
 }
