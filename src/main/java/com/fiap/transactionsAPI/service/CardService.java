@@ -16,5 +16,5 @@ public interface CardService {
 
     InvoiceEntity createOrUpdateInvoice(List<InvoiceEntity> invoiceEntityList, InvoiceItemDTO invoiceItemDTO);
 
-    CardEntity update(CardEntity cardEntity, InvoiceEntity updatedInvoice);
+    CardEntity update(CardEntity cardEntity, InvoiceEntity updatedInvoice, InvoiceItemDTO purchaseItem);
 }

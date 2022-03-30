@@ -1,5 +1,6 @@
 package com.fiap.transactionsAPI.entity;
 
+import com.fiap.transactionsAPI.dto.CardAccountDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,6 +24,12 @@ public class CardAccountEntity {
         this.accountBalance = accountBalance;
         this.accountLimit = accountLimit;
     }
+
+    public CardAccountEntity(CardAccountDTO cardAccountDTO){
+        this.accountBalance = cardAccountDTO.getAccountBalance();
+        this.accountLimit = cardAccountDTO.getAccountLimit();
+    }
+
 
     @Override
     public boolean equals(Object o) {

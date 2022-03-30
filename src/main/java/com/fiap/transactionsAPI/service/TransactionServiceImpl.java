@@ -29,7 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
         if (optCardEntity.isPresent()) {
             if (checkBalance(optCardEntity.get(), transactionDTO.getPurchaseDTO())) {
                 InvoiceEntity updatedInvoice = cardService.createOrUpdateInvoice(optCardEntity.get().getInvoiceEntityList(), transactionDTO.getPurchaseDTO());
-                cardService.update(optCardEntity.get(), updatedInvoice);
+                cardService.update(optCardEntity.get(), updatedInvoice, transactionDTO.getPurchaseDTO());
                 approvalDTO.approvalSucess();
             } else
                 approvalDTO.approvalDenied();

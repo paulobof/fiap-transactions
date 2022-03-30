@@ -2,6 +2,7 @@ package com.fiap.transactionsAPI.service;
 
 import com.fiap.transactionsAPI.dto.CardDTO;
 import com.fiap.transactionsAPI.dto.InvoiceItemDTO;
+import com.fiap.transactionsAPI.entity.CardAccountEntity;
 import com.fiap.transactionsAPI.entity.CardEntity;
 import com.fiap.transactionsAPI.entity.InvoiceEntity;
 import com.fiap.transactionsAPI.entity.InvoiceItemEntity;
@@ -21,13 +22,16 @@ public class CardServiceImpl implements CardService{
     private final CardRepository cardRepository;
     private final InvoiceService invoiceService;
     private final InvoiceItemService invoiceItemService;
+    private final CardAccountService cardAccountService;
 
     public CardServiceImpl(CardRepository cardRepository,
                            InvoiceService invoiceService,
-                           InvoiceItemService invoiceItemService){
+                           InvoiceItemService invoiceItemService,
+                           CardAccountService cardAccountService){
         this.cardRepository = cardRepository;
         this.invoiceService = invoiceService;
         this.invoiceItemService = invoiceItemService;
+        this.cardAccountService = cardAccountService;
     }
 
     @Override
@@ -65,11 +69,15 @@ public class CardServiceImpl implements CardService{
     }
 
     @Override
-    public CardEntity update(CardEntity cardEntity, InvoiceEntity updatedInvoice) {
+    public CardEntity update(CardEntity cardEntity, InvoiceEntity updatedInvoice, InvoiceItemDTO purchaseItem) {
         if (cardEntity.getInvoiceEntityList() == null)
             cardEntity.setInvoiceEntityList(new ArrayList<>());
 
         cardEntity.getInvoiceEntityList().add(updatedInvoice);
+
+        CardAccountEntity cardAccountEntity = cardEntity.getCardAccount();
+        cardAccountEntity.setAccountBalance(cardAccountEntity.getAccountBalance() - purchaseItem.getPurchaseValue());
+        cardAccountService.update(cardAccountEntity);
         return cardRepository.save(cardEntity);
     }
 }
