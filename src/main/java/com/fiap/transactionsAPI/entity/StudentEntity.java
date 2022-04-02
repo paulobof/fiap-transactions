@@ -31,6 +31,7 @@ public class StudentEntity implements Serializable {
         this.ra = studentDTO.getRa();
         this.name = studentDTO.getName();
         this.email = studentDTO.getEmail();
+        this.card = studentDTO.getCard();
     }
 
 

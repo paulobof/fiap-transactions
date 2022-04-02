@@ -7,6 +7,7 @@ import com.fiap.transactionsAPI.entity.CardEntity;
 import com.fiap.transactionsAPI.entity.InvoiceEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,7 +27,10 @@ public class TransactionServiceImpl implements TransactionService {
         ApprovalDTO approvalDTO = new ApprovalDTO();
         Optional<CardEntity> optCardEntity = cardService.findCard(transactionDTO.getCardDTO());
 
-        if (optCardEntity.isPresent()) {
+
+        if (optCardEntity.isPresent() &&
+                optCardEntity.get().equals(new CardEntity(transactionDTO.getCardDTO()))) {
+//                optCardEntity.get().getSecurityCode().equals(transactionDTO.getCardDTO().getSecurityCode())) {
             if (checkBalance(optCardEntity.get(), transactionDTO.getPurchaseDTO())) {
                 InvoiceEntity updatedInvoice = cardService.createOrUpdateInvoice(optCardEntity.get().getInvoiceEntityList(), transactionDTO.getPurchaseDTO());
                 cardService.update(optCardEntity.get(), updatedInvoice, transactionDTO.getPurchaseDTO());
@@ -40,6 +44,11 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     private Boolean checkBalance(CardEntity card, InvoiceItemDTO purchaseDTO) {
+        List<InvoiceEntity> currentInvoiceList = cardService.getCurrentInvoiceList(card.getInvoiceEntityList());
+        if (currentInvoiceList.isEmpty()){
+            card.getCardAccount().setAccountBalance(1000.0);
+            card.getCardAccount().setAccountBalance(1000.0);
+        }
         return card.getCardAccount().getAccountBalance() > 0.0
                 && card.getCardAccount().getAccountBalance() >= purchaseDTO.getPurchaseValue();
     }

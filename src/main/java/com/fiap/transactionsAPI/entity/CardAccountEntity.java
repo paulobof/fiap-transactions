@@ -19,8 +19,7 @@ public class CardAccountEntity {
 
     public CardAccountEntity(){}
 
-    public CardAccountEntity(String id, Double accountBalance, Double accountLimit) {
-        this.id = id;
+    public CardAccountEntity(Double accountBalance, Double accountLimit) {
         this.accountBalance = accountBalance;
         this.accountLimit = accountLimit;
     }
@@ -28,6 +27,7 @@ public class CardAccountEntity {
     public CardAccountEntity(CardAccountDTO cardAccountDTO){
         this.accountBalance = cardAccountDTO.getAccountBalance();
         this.accountLimit = cardAccountDTO.getAccountLimit();
+        this.id = cardAccountDTO.getId();
     }
 
 

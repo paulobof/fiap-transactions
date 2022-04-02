@@ -8,7 +8,7 @@ public class Constants {
 
     public static final String INSUFFICIENT_BALANCE = "Saldo insulficiente para realizar a compra";
 
-    public static final String NON_EXISTING_CARD = "Cartão não localizado";
+    public static final String NON_EXISTING_CARD = "Cartão não existente ou inválido";
 
     public static final int NEXT_MONTH = 1;
 

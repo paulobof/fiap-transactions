@@ -1,7 +1,8 @@
 package com.fiap.transactionsAPI.controller;
 
 import com.fiap.transactionsAPI.dto.StudentDTO;
-import com.fiap.transactionsAPI.service.StudentServiceImpl;
+import com.fiap.transactionsAPI.service.CardService;
+import com.fiap.transactionsAPI.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,17 +10,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("students")
 public class StundentController {
 
-    private StudentServiceImpl studentService;
+    private final StudentService studentService;
+    private final CardService cardService;
 
-    public StundentController(StudentServiceImpl studentService){
+    public StundentController(StudentService studentService,
+                              CardService cardService){
 
         this.studentService = studentService;
+        this.cardService = cardService;
     }
-
-//    @GetMapping
-//    public List<StudentDTO> findAllStudents() {
-//        return studentService.findAll();
-//    }
 
     @GetMapping(value = "{id}")
     public StudentDTO findById(@PathVariable String id) {
@@ -57,6 +56,11 @@ public class StundentController {
     @GetMapping(value = "teste")
     public String teste(){
         return "teste";
+    }
+
+    @PostMapping(value = "{ra}/card")
+    public StudentDTO generateCreditCard(@PathVariable Long ra){
+        return cardService.generateCard(ra);
     }
 
 }

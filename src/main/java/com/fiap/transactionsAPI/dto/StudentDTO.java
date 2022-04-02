@@ -1,5 +1,6 @@
 package com.fiap.transactionsAPI.dto;
 
+import com.fiap.transactionsAPI.entity.CardEntity;
 import com.fiap.transactionsAPI.entity.StudentEntity;
 
 public class StudentDTO {
@@ -7,6 +8,7 @@ public class StudentDTO {
     private String name;
     private String email;
     private Long ra;
+    private CardEntity card;
 
     public StudentDTO() {
     }
@@ -15,6 +17,7 @@ public class StudentDTO {
         this.name = entity.getName();
         this.email = entity.getEmail();
         this.ra = entity.getRa();
+        this.card = entity.getCard();
     }
 
     public String getName() {
@@ -42,4 +45,11 @@ public class StudentDTO {
     }
 
 
+    public CardEntity getCard() {
+        return card;
+    }
+
+    public void setCard(CardEntity card) {
+        this.card = card;
+    }
 }

@@ -1,15 +1,18 @@
 package com.fiap.transactionsAPI.entity;
 
+import com.fiap.transactionsAPI.dto.CardDTO;
 import com.fiap.transactionsAPI.enums.CardFlagEnum;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Document("card")
-public class CardEntity {
+public class CardEntity implements Serializable {
 
     private static final long serivalVersionUID = 1;
 
@@ -23,7 +26,7 @@ public class CardEntity {
     private LocalDate expirationDate;
     private CardAccountEntity cardAccount;
 
-    @DocumentReference(lazy = false)
+    @DocumentReference(lazy = true)
     private List<InvoiceEntity> invoiceEntityList;
 
     public CardEntity() {
@@ -38,6 +41,14 @@ public class CardEntity {
         this.expirationDate = expirationDate;
         this.cardAccount = cardAccount;
         this.invoiceEntityList = invoiceEntityList;
+    }
+
+    public CardEntity(CardDTO cardDTO) {
+        this.expirationDate = cardDTO.getExpirationDate();
+        this.cardFlag = cardDTO.getCardFlagEnum();
+        this.cardNumber = cardDTO.getCardNumber();
+        this.name = cardDTO.getName();
+        this.securityCode = cardDTO.getSecurityCode();
     }
 
     public String getId() {
@@ -102,5 +113,18 @@ public class CardEntity {
 
     public void setCardFlag(CardFlagEnum cardFlag) {
         this.cardFlag = cardFlag;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CardEntity that = (CardEntity) o;
+        return name.equals(that.name) && cardFlag == that.cardFlag && cardNumber.equals(that.cardNumber) && securityCode.equals(that.securityCode) && expirationDate.equals(that.expirationDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, cardFlag, cardNumber, securityCode, expirationDate);
     }
 }

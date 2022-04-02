@@ -2,6 +2,7 @@ package com.fiap.transactionsAPI.service;
 
 import com.fiap.transactionsAPI.dto.CardDTO;
 import com.fiap.transactionsAPI.dto.InvoiceItemDTO;
+import com.fiap.transactionsAPI.dto.StudentDTO;
 import com.fiap.transactionsAPI.entity.CardEntity;
 import com.fiap.transactionsAPI.entity.InvoiceEntity;
 
@@ -16,5 +17,11 @@ public interface CardService {
 
     InvoiceEntity createOrUpdateInvoice(List<InvoiceEntity> invoiceEntityList, InvoiceItemDTO invoiceItemDTO);
 
+    List<InvoiceEntity> getCurrentInvoiceList(List<InvoiceEntity> invoiceEntityList);
+
     CardEntity update(CardEntity cardEntity, InvoiceEntity updatedInvoice, InvoiceItemDTO purchaseItem);
+
+    StudentDTO generateCard(Long ra);
+
+
 }
