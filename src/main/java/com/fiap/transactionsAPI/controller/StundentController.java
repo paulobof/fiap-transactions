@@ -1,5 +1,6 @@
 package com.fiap.transactionsAPI.controller;
 
+import com.fiap.transactionsAPI.dto.ReportDTO;
 import com.fiap.transactionsAPI.dto.StudentDTO;
 import com.fiap.transactionsAPI.service.CardService;
 import com.fiap.transactionsAPI.service.ReportService;
@@ -13,11 +14,11 @@ public class StundentController {
 
     private final StudentService studentService;
     private final CardService cardService;
-    private ReportService reportService;
+    private final ReportService reportService;
 
     public StundentController(StudentService studentService,
                               CardService cardService,
-                              ReportService reportService){
+                              ReportService reportService) {
 
         this.studentService = studentService;
         this.cardService = cardService;
@@ -48,35 +49,28 @@ public class StundentController {
     }
 
     @GetMapping(value = "/ra/{ra}")
-    public StudentDTO findByRa(@PathVariable Long ra){
+    public StudentDTO findByRa(@PathVariable Long ra) {
         return studentService.findByRa(ra);
     }
 
     @GetMapping
-    public Object find(@RequestParam(value = "ra", defaultValue = "") Long ra){
-        return ra == null? studentService.findAll() : studentService.findByRa(ra);
+    public Object find(@RequestParam(value = "ra", defaultValue = "") Long ra) {
+        return ra == null ? studentService.findAll() : studentService.findByRa(ra);
     }
 
     @GetMapping(value = "teste")
-    public String teste(){
+    public String teste() {
         return "teste";
     }
 
     @PostMapping(value = "{ra}/card")
-    public StudentDTO generateCreditCard(@PathVariable Long ra){
+    public StudentDTO generateCreditCard(@PathVariable Long ra) {
         return cardService.generateCard(ra);
     }
 
     @GetMapping(value = "{ra}/report")
-    public String report(@PathVariable Long ra){
-        reportService.generateReport(ra);
-
-//        mailer.sendEmail(new MailMessage("transaction.fiap@gmail.com",
-//                "wees.guimaraes@gmail.com",
-//                "Teste de envio via API",
-//                "Primeiro envio de e-mail via app."));
-        return "Sucess";
-
+    public ReportDTO report(@PathVariable Long ra) {
+        return reportService.generateReport(ra);
     }
 
 }

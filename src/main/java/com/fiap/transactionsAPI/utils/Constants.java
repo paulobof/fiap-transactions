@@ -23,5 +23,6 @@ public class Constants {
     public static final int CLOSING_DAY = 10;
 
     public static final int DUE_DATE = 15;
+
     public static final String COMPRAS_REALIZADAS = "Compras realizadas: ";
 }
