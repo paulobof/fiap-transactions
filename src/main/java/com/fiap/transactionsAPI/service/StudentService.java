@@ -14,7 +14,7 @@ public interface StudentService {
 
     public StudentDTO update(StudentDTO studentDTO);
 
-    public void delete(Object id);
+    public Long delete(Object id);
 
     public StudentDTO findByRa(Long ra);
 }

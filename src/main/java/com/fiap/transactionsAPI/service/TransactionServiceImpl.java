@@ -25,7 +25,7 @@ public class TransactionServiceImpl implements TransactionService {
     public ApprovalDTO authorize(TransactionDTO transactionDTO) {
 
         ApprovalDTO approvalDTO = new ApprovalDTO();
-        Optional<CardEntity> optCardEntity = cardService.findCard(transactionDTO.getCardDTO());
+        Optional<CardEntity> optCardEntity = cardService.findCard(transactionDTO.getCardDTO().getCardNumber());
 
 
         if (optCardEntity.isPresent() &&

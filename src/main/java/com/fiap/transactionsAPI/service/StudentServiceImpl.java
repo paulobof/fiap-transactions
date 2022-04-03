@@ -53,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
     private Long generateRa() {
         Random random = new Random();
         int i = random.nextInt(899999) + 100000;
-        return Long.valueOf(i);
+        return (long) i;
     }
 
     public StudentDTO update(StudentDTO studentDTO) {
@@ -62,14 +62,17 @@ public class StudentServiceImpl implements StudentService {
         return new StudentDTO(studentRepository.save(studentEntity));
     }
 
-    public void delete(Object id) {
+    public Long delete(Object id) {
+        Long cardNumber = null;
         try {
             Optional<StudentEntity> dto = studentRepository.findByRa(Long.parseLong((String) id));
+            cardNumber = dto.get().getCard().getCardNumber();
             studentRepository.delete(dto.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
         } catch (Exception e) {
             this.findById(id.toString());
             studentRepository.deleteById(id.toString());
         }
+        return cardNumber;
     }
 
     public StudentDTO findByRa(Long ra) {

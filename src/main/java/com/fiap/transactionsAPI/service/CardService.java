@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface CardService {
 
-    public Optional<CardEntity> findCard(CardDTO cardDTO);
+    public Optional<CardEntity> findCard(Long cardNumber);
 
     InvoiceEntity recoverInvoice(CardDTO cardDTO);
 
@@ -22,6 +22,8 @@ public interface CardService {
     CardEntity update(CardEntity cardEntity, InvoiceEntity updatedInvoice, InvoiceItemDTO purchaseItem);
 
     StudentDTO generateCard(Long ra);
+
+    void delete(Long cardNumber);
 
 
 }

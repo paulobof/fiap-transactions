@@ -45,7 +45,8 @@ public class StundentController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "{id}")
     public void deleteStudent(@PathVariable Object id) {
-        studentService.delete(id);
+        Long cardNumber = studentService.delete(id);
+        cardService.delete(cardNumber);
     }
 
     @GetMapping(value = "/ra/{ra}")

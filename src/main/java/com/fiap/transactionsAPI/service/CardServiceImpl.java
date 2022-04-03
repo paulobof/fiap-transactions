@@ -43,8 +43,8 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public Optional<CardEntity> findCard(CardDTO cardDTO) {
-        return cardRepository.findByCardNumber(cardDTO.getCardNumber());
+    public Optional<CardEntity> findCard(Long cardNumber) {
+        return cardRepository.findByCardNumber(cardNumber);
     }
 
     @Override
@@ -105,6 +105,12 @@ public class CardServiceImpl implements CardService {
         return studentService.update(studentDTO);
     }
 
+    @Override
+    public void delete(Long cardNumber) {
+        Optional<CardEntity> card = findCard(cardNumber);
+        card.ifPresent(cardRepository::delete);
+    }
+
     private CardEntity generateCard(StudentDTO studentDTO, CardEntity cardEntity) {
         cardEntity.setCardNumber(generateCardNumber());
         cardEntity.setCardAccount(generateCardAccount());
@@ -125,7 +131,7 @@ public class CardServiceImpl implements CardService {
 
     private Integer generateSecurityCod() {
         StringBuilder sb = new StringBuilder();
-        while (sb.length() != 3) sb.append(random.nextInt(9) + 1);
+        while (sb.length() != 3) sb.append(random.nextInt(899) + 100);
         return Integer.valueOf(sb.toString());
     }
 
@@ -136,7 +142,7 @@ public class CardServiceImpl implements CardService {
 
     private Long generateCardNumber() {
         StringBuilder sb = new StringBuilder();
-        while (sb.length() != 16) sb.append(random.nextInt(9) + 1);
+        while (sb.length() != 16) sb.append(random.nextInt(8999) + 1000);
         return Long.valueOf(sb.toString());
     }
 }
