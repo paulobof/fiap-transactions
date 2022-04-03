@@ -1,6 +1,9 @@
 package com.fiap.transactionsAPI.mail;
 
+import com.fiap.transactionsAPI.utils.Constants;
+
 public class MailMessage {
+
 
     private String sender;
     private String recipient;
@@ -12,6 +15,10 @@ public class MailMessage {
         this.recipient = recipient;
         this.subject = subject;
         this.body = body;
+    }
+
+    public MailMessage() {
+
     }
 
     public String getSender() {
@@ -44,5 +51,15 @@ public class MailMessage {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String salutation(String name){
+        StringBuilder sb = new StringBuilder();
+        sb.append(Constants.OLÁ_).append(name).append(",").append(Constants.BR)
+                .append(Constants.BR)
+                .append(Constants.MSG_FATURA_MES_ATUAL).append(Constants.BR);
+
+        return sb.toString();
+
     }
 }

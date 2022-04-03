@@ -1,9 +1,8 @@
 package com.fiap.transactionsAPI.controller;
 
 import com.fiap.transactionsAPI.dto.StudentDTO;
-import com.fiap.transactionsAPI.mail.MailMessage;
-import com.fiap.transactionsAPI.mail.Mailer;
 import com.fiap.transactionsAPI.service.CardService;
+import com.fiap.transactionsAPI.service.ReportService;
 import com.fiap.transactionsAPI.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +13,15 @@ public class StundentController {
 
     private final StudentService studentService;
     private final CardService cardService;
-    private final Mailer mailer;
+    private ReportService reportService;
 
     public StundentController(StudentService studentService,
                               CardService cardService,
-                              Mailer mailer){
+                              ReportService reportService){
 
         this.studentService = studentService;
         this.cardService = cardService;
-        this.mailer = mailer;
+        this.reportService = reportService;
     }
 
     @GetMapping(value = "{id}")
@@ -70,10 +69,12 @@ public class StundentController {
 
     @GetMapping(value = "{ra}/report")
     public String report(@PathVariable Long ra){
-        mailer.sendEmail(new MailMessage("transaction.fiap@gmail.com",
-                "wees.guimaraes@gmail.com",
-                "Teste de envio via API",
-                "Primeiro envio de e-mail via app."));
+        reportService.generateReport(ra);
+
+//        mailer.sendEmail(new MailMessage("transaction.fiap@gmail.com",
+//                "wees.guimaraes@gmail.com",
+//                "Teste de envio via API",
+//                "Primeiro envio de e-mail via app."));
         return "Sucess";
 
     }
