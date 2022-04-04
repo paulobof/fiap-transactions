@@ -6,7 +6,7 @@ services:
     container_name: transactions-mongodb
     restart: always
     ports:
-      - "27017:27017"
+      - "27020:27017"
 
   app:
     image: wesleyguimaraes/transactionsapi

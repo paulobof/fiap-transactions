@@ -45,7 +45,7 @@ public class CardEntity implements Serializable {
 
     public CardEntity(CardDTO cardDTO) {
         this.expirationDate = cardDTO.getExpirationDate();
-        this.cardFlag = cardDTO.getCardFlagEnum();
+        this.cardFlag = cardDTO.getCardFlag();
         this.cardNumber = cardDTO.getCardNumber();
         this.name = cardDTO.getName();
         this.securityCode = cardDTO.getSecurityCode();

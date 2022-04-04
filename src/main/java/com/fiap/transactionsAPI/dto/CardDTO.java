@@ -10,7 +10,7 @@ public class CardDTO {
     private Long cardNumber;
     private Integer securityCode;
     private LocalDate expirationDate;
-    private CardFlagEnum cardFlagEnum;
+    private CardFlagEnum cardFlag;
 
     public String getName() {
         return name;
@@ -44,11 +44,11 @@ public class CardDTO {
         this.expirationDate = expirationDate;
     }
 
-    public CardFlagEnum getCardFlagEnum() {
-        return cardFlagEnum;
+    public CardFlagEnum getCardFlag() {
+        return cardFlag;
     }
 
-    public void setCardFlagEnum(CardFlagEnum cardFlagEnum) {
-        this.cardFlagEnum = cardFlagEnum;
+    public void setCardFlag(CardFlagEnum cardFlag) {
+        this.cardFlag = cardFlag;
     }
 }
