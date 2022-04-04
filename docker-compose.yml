@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  db:
+    image: mongo:latest
+    container_name: transactions-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+
+  app:
+    image: wesleyguimaraes/transactionsapi
+    container_name: transactionsapi-app
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: mongodb://db:27017/transactiondb
+    ports:
+      - "9090:8080"
+
+
