@@ -10,8 +10,13 @@
 
 # FIAP Avaliação - Spring Framework: TransactionAPI
 
+
 Projeto Java para autorização de transações de cartão de crédito fictício dos alunos da FIAP.
 
+> **Solução de banco de dados:**
+> 
+> Optamos pelo MongoDB devido a facilidade/velocidade no desenvolvimento.
+> E sua flexibilidade e escala elástica pronta para o mercado.
 
 ## Executando o projeto (com Docker)
 
@@ -24,6 +29,48 @@ Projeto Java para autorização de transações de cartão de crédito fictício
 ### 2 - Executar o docker-compose do projeto:
 #### no diretório do projeto execute o comando:
 
-  ```shell
+  ~~~shell
   docker-compose up 
+ ~~~
+
+### Documentação
+- Acesse a documentação no seu browser no endereço:
+http://localhost:8081/swagger-ui.html
+
+
+## Executando o projeto (Sem Docker)
+
+> **Download do projeto no github:**
+
   ```
+  $ git clone https://github.com/wees-guimaraes/fiap-transactions.git
+  ```
+
+## Pré Requisitos
+
+- Gradle 7.3
+- Java 11
+- Mongodb 5.0
+
+##No Diretório do projeto:
+
+### 1 - Criando o jar
+
+    gradle build -x test
+
+### 2 - Set a URL de conexão com o mongodb nas variáveis de ambiente:
+
+    export SPRING_DATASOURCE_URL=mongodb://localhost:27017/transactiondb
+
+
+### 3 - Executando o jar:
+
+    java -jar build/libs/transactionsAPI.jar
+
+
+### Documentação
+- Acesse a documentação no seu browser no endereço:
+  http://localhost:8080/swagger-ui.html
+
+### Postman Collection:
+ - Importe a collection localizada na raiz do projeto: **TransactionAPI.postman_collection.json**
