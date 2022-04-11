@@ -52,7 +52,7 @@ http://localhost:8081/swagger-ui.html
 - Java 11
 - Mongodb 5.0
 
-##No Diretório do projeto:
+## No Diretório do projeto:
 
 ### 1 - Criando o jar
 
@@ -63,9 +63,9 @@ http://localhost:8081/swagger-ui.html
     export SPRING_DATASOURCE_URL=mongodb://localhost:27017/transactiondb
 
 
-### 3 - Executando o jar:
+### 3 - Executando a aplicação:
 
-    java -jar build/libs/transactionsAPI.jar
+    gradle bootRun
 
 
 ### Documentação
