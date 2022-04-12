@@ -1,28 +1,33 @@
 package com.fiap.transactionsAPI.config;
 
 import com.fiap.transactionsAPI.repository.*;
+import com.fiap.transactionsAPI.service.CardService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class Instantiation implements CommandLineRunner {
 
-    private final CardRepository cardRepository;
-    private final CardAccountRepository cardAccountRepository;
-    private final InvoiceRepository invoiceRepository;
-    private final InvoiceItemRepository invoiceItemRepository;
+//    private final CardRepository cardRepository;
+//    private final CardAccountRepository cardAccountRepository;
+//    private final InvoiceRepository invoiceRepository;
+//    private final InvoiceItemRepository invoiceItemRepository;
+    private final CardService cardService;
     private final StudentRepository studentRepository;
 
-    public Instantiation(CardRepository cardRepository,
-                         CardAccountRepository cardAccountRepository,
-                         InvoiceRepository invoiceRepository,
-                         InvoiceItemRepository invoiceItemRepository,
-                         StudentRepository studentRepository){
+//    CardRepository cardRepository,
+//    CardAccountRepository cardAccountRepository,
+//    InvoiceRepository invoiceRepository,
+//    InvoiceItemRepository invoiceItemRepository,
 
-        this.cardRepository = cardRepository;
-        this.cardAccountRepository = cardAccountRepository;
-        this.invoiceRepository = invoiceRepository;
-        this.invoiceItemRepository = invoiceItemRepository;
+    public Instantiation(StudentRepository studentRepository,
+                         CardService cardService){
+
+//        this.cardRepository = cardRepository;
+//        this.cardAccountRepository = cardAccountRepository;
+//        this.invoiceRepository = invoiceRepository;
+//        this.invoiceItemRepository = invoiceItemRepository;
+        this.cardService = cardService;
         this.studentRepository = studentRepository;
     }
 
@@ -30,11 +35,11 @@ public class Instantiation implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        studentRepository.deleteAll();
-        cardRepository.deleteAll();
-        invoiceRepository.deleteAll();
-        invoiceItemRepository.deleteAll();
-        cardAccountRepository.deleteAll();
+        System.out.println("Instantiation ok.");
+
+//        List<StudentEntity> studentsWithoutCard = studentRepository.getStudentsWithoutCard();
+//
+//        studentsWithoutCard.stream().forEach(s -> cardService.generateCard(s.getRa()));
 
     }
 

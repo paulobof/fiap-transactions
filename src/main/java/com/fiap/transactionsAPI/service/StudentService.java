@@ -8,7 +8,7 @@ public interface StudentService {
 
     public List<StudentDTO> findAll();
 
-    public StudentDTO findById(String id);
+    public StudentDTO findById(Long id);
 
     public StudentDTO insert(StudentDTO studentDTO);
 

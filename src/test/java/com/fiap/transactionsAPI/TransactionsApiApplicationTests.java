@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class TransactionsApiApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void main() {
+		TransactionsApiApplication.main(new String[]{});
 	}
 
 }

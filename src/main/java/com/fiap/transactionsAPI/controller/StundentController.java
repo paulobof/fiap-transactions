@@ -26,7 +26,7 @@ public class StundentController {
     }
 
     @GetMapping(value = "{id}")
-    public StudentDTO findById(@PathVariable String id) {
+    public StudentDTO findById(@PathVariable Long id) {
         return studentService.findById(id);
     }
 
@@ -42,8 +42,8 @@ public class StundentController {
         return studentService.update(studentDTO);
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteStudent(@PathVariable Object id) {
         Long cardNumber = studentService.delete(id);
         cardService.delete(cardNumber);
