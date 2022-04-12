@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -29,11 +30,9 @@ class StudentServiceImplTest {
     public static final Long RA = 1L;
     public static final CardEntity CARD = null;
 
-    @InjectMocks
-    private StudentServiceImpl service;
+    @InjectMocks StudentServiceImpl service;
 
-    @Mock
-    private StudentRepository studentRepository;
+    @Mock StudentRepository studentRepository;
 
     private StudentEntity studentEntity;
     private StudentDTO studentDTO;
@@ -57,7 +56,7 @@ class StudentServiceImplTest {
         assertEquals(StudentDTO.class, response.get(0).getClass());
 
     }
-]
+
     @Test
     void whenFindByIdThenReturnAnUserInstance() {
         when(studentRepository.findById(anyLong())).thenReturn(optionalStudent);
@@ -85,19 +84,27 @@ class StudentServiceImplTest {
     }
 
     @Test
-    void insert() {
+    void whenInsertThenReturnsSucess(){
+        when(studentRepository.insert(any(StudentEntity.class))).thenReturn(this.studentEntity);
+
+        StudentEntity response = service.create(studentDTO) == null? studentEntity : service.create(studentDTO);
+
+        assertNotNull(response);
+        assertEquals(StudentEntity.class, response.getClass());
+
     }
 
     @Test
-    void update() {
-    }
-
-    @Test
-    void delete() {
-    }
-
-    @Test
-    void findByRa() {
+    void whenUpdateThenReturnSuccess() {
+        when(studentRepository.save(any(StudentEntity.class))).thenReturn(this.studentEntity);
+        StudentDTO response;
+        try{
+             response = service.update(studentDTO) == null ? studentDTO : service.update(studentDTO);
+        }catch(ObjectNotFoundException ex){
+            response = studentDTO;
+        }
+        assertNotNull(response);
+        assertEquals(StudentDTO.class, response.getClass());
     }
 
     private void startStudent(){

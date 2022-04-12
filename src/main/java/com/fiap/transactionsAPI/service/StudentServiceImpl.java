@@ -39,16 +39,29 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public StudentDTO insert(StudentDTO studentDTO) {
-        if (studentDTO.getRa() == null){
+        StudentEntity entity = new StudentEntity(studentDTO);
+
+        if (studentDTO.getRa() == null)
             studentDTO.setRa(generateRa());
-        }else if(studentRepository.findById(studentDTO.getRa()).isPresent())
+        else if(studentRepository.findById(studentDTO.getRa()).isPresent())
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Estudante já existente!");
 
-
-
-        return new StudentDTO(studentRepository.insert(new StudentEntity(studentDTO)));
+        return new StudentDTO(studentRepository.insert(entity));
 
     }
+
+    public StudentEntity create(StudentDTO studentDTO) {
+        StudentEntity entity = new StudentEntity(studentDTO);
+
+        if (studentDTO.getRa() == null)
+            studentDTO.setRa(generateRa());
+        else if(studentRepository.findById(studentDTO.getRa()).isPresent())
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Estudante já existente!");
+
+        StudentEntity studentInserido = studentRepository.insert(entity);
+        return studentInserido;
+    }
+
 
     private Long generateRa() {
         Random random = new Random();
