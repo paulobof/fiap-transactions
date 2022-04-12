@@ -29,11 +29,7 @@ Projeto Java para autorização de transações de cartão de crédito fictício
 ### 2 - Executar o docker-compose do projeto:
 #### no diretório do projeto execute o comando:
   
-~~~shell
- docker build -t wesleyguimaraes/transactionsapi .
-~~~
-
-  ~~~shell
+ ~~~shell
   docker-compose up 
  ~~~
 
