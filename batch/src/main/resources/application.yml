@@ -1,0 +1,14 @@
+# Server port
+server:
+  port: 8080
+
+# Mongo Configuration
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port:  27017
+      database:  transactiondb
+  batch:
+    job:
+      enabled: true
